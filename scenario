@@ -1,0 +1,6 @@
+s_type,prefix,traffic_id,src,dst,bandwidth,duration,service_type
+add,s1,0,141.223.181.155,141.223.181.156,300,3600,firewall,ids
+add,s1,1,141.223.181.155,141.223.181.156,300,3000,firewall,ids
+remove,0
+wait,60
+change,s1,1,300,120,firewall,ids

@@ -1,0 +1,356 @@
+---
+swagger: "2.0"
+info:
+  description: "NI Traffic Generation Module for the NI project."
+  version: "1.0.0"
+  title: "NI Traffic Generation Module"
+tags:
+- name: "ni_traffic_generation_module"
+  description: "Traffic generation module for NI-MANO."
+schemes:
+- "https"
+- "http"
+paths: 
+  /gen_deployment_traffic:
+    post:
+      tags:
+      - "Test Traffic Generation APIs"
+      summary: "generate_deployment_traffic"
+      operationId: "generate_deployment_traffic"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "scenario"
+        in: "query"
+        description: "test traffic scenario (0, 1, 2) is provided"
+        required: true
+        type: "integer"
+        format: "int32"
+      responses:
+        "200":
+          description: "Success."
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Traffic_Info"
+        "400":
+          description: "Invalid parameters supplied."
+      x-swagger-router-controller: "server.controllers.default_controller"
+  /gen_auto_scaling_traffic:
+    post:
+      tags:
+      - "Test Traffic Generation APIs"
+      summary: "generate_auto_scaling_traffic"
+      operationId: "generate_auto_scaling_traffic"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "scenario"
+        in: "query"
+        description: "test traffic scenario (0, 1, 2) is provided"
+        required: true
+        type: "integer"
+        format: "int32"
+      responses:
+        "200":
+          description: "Success."
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Traffic_Info"
+        "400":
+          description: "Invalid parameters supplied."
+      x-swagger-router-controller: "server.controllers.default_controller"
+  /gen_sfc_traffic:
+    post:
+      tags:
+      - "Test Traffic Generation APIs"
+      summary: "generate_sfc_traffic"
+      operationId: "generate_sfc_traffic"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "scenario"
+        in: "query"
+        description: "test traffic scenario (0, 1, 2) is provided"
+        required: true
+        type: "integer"
+        format: "int32"
+      responses:
+        "200":
+          description: "Success."
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Traffic_Info"
+        "400":
+          description: "Invalid parameters supplied."
+      x-swagger-router-controller: "server.controllers.default_controller"
+  /gen_power_management_traffic:
+    post:
+      tags:
+      - "Test Traffic Generation APIs"
+      summary: "generate_power_management_traffic"
+      operationId: "generate_power_management_traffic"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "scenario"
+        in: "query"
+        description: "test traffic scenario (0, 1, 2) is provided"
+        required: true
+        type: "integer"
+        format: "int32"
+      responses:
+        "200":
+          description: "Success."
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Traffic_Info"
+        "400":
+          description: "Invalid parameters supplied."
+      x-swagger-router-controller: "server.controllers.default_controller"
+  /get_traffics_info:
+    get:
+      tags:
+      - "Traffic Generation APIs"
+      summary: "get_all_generated_traffic"
+      operationId: "get_traffics_info"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        "200":
+          description: "Success."
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Traffic_Info"
+        "400":
+          description: "Invalid parameters supplied."
+      x-swagger-router-controller: "server.controllers.default_controller"
+  /generate_custom_traffic:
+    post:
+      tags:
+      - "Traffic Generation APIs"
+      summary: "generate_custom_traffic"
+      operationId: "generate_custom_traffic"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "traffic_info"
+        in: "body"
+        description: "generated traffic information"
+        required: true
+        schema:
+            $ref: "#/definitions/Traffic_Gen_Info"
+      responses:
+        "200":
+          description: "Success."
+          schema:
+            $ref: "#/definitions/Traffic_Info"
+        "400":
+          description: "Invalid parameters supplied."
+      x-swagger-router-controller: "server.controllers.default_controller"
+  /change_traffic/{traffic_id}:
+    post:
+      tags:
+      - "Traffic Generation APIs"
+      summary: "change_traffic"
+      operationId: "change_traffic"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "traffic_id"
+        in: "path"
+        description: "The id of the generated traffic"
+        required: true
+        type: "string"
+      - name: "bandwidth"
+        in: "query"
+        description: "The target bandwidth"
+        required: true
+        type: "integer"
+        format: "int32"
+      - name: "duration"
+        in: "query"
+        description: "The target duration"
+        required: true
+        type: "integer"
+        format: "int32"
+      responses:
+        "200":
+          description: "Success."
+          schema:
+            $ref: "#/definitions/Traffic_Info"
+      x-swagger-router-controller: "server.controllers.default_controller"
+  /generate_scenario:
+    post:
+      tags:
+      - "Traffic Generation APIs"
+      summary: "generate_scenario"
+      operationId: "generate_scenario"
+      produces:
+      - "application/json"
+      parameters: []      
+      responses:
+        "200":
+          description: "Success."
+          schema:
+            $ref: "#/definitions/Traffic_Scenario_Info"
+      x-swagger-router-controller: "server.controllers.default_controller"
+  /clean_traffic/{traffic_id}:
+    post:
+      tags:
+      - "Traffic Generation APIs"
+      summary: "clean_traffic"
+      operationId: "clean_traffic"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "traffic_id"
+        in: "path"
+        description: "The id of the generated traffic"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "Success."
+          schema:
+            type: "string"
+      x-swagger-router-controller: "server.controllers.default_controller"
+definitions:
+  Traffic_Gen_Info:
+    type: "object"
+    properties:
+      prefix:
+        type: "string"
+      traffic_id:
+        type: "string"
+        description: "recommend using deafult value as 'none'. prohibit duplicated traffic_id"
+      src:
+        type: "string"
+      dst:
+        type: "string"
+      bandwidth:
+        type: "integer"
+        format: "int32"
+        description: "Mbps"
+      duration:
+        type: "integer"
+        format: "int32"
+        description: "seconds"
+      service_type:
+        type: "array"
+        items:
+          type: "string"
+    description: "Information of traffic generation"
+    example:
+      prefix: "s1"
+      traffic_id: "0"
+      src: "141.223.181.155"
+      dst: "141.223.181.156"
+      bandwidth: 50
+      duration: 3600
+      service_type:
+        - "firewall"
+        - "ids"
+  Traffic_Info:
+    type: "object"
+    properties:
+      prefix:
+        type: "string"
+      traffic_id:
+        type: "string"
+      src:
+        type: "string"
+      dst:
+        type: "string"
+      bandwidth:
+        type: "integer"
+        format: "int32"
+        description: "Mbps"
+      duration:
+        type: "integer"
+        format: "int32"
+        description: "seconds"
+      sfcr_id:
+        type: "string"
+      sfc_id:
+        type: "string"
+      src_id:
+        type: "string"
+      dst_id:
+        type: "string"
+      process_id:
+        type: "string"
+      port:
+        type: "string"
+      start_time:
+        type: "number"
+        format: "float"
+      service_type:
+        type: "array"
+        items:
+          type: "string"
+    description: "Information of traffic"
+    example:
+      prefix: "s1"
+      traffic_id: "0"
+      src: "141.223.181.155"
+      dst: "141.223.181.166"
+      bandwidth: 50
+      duration: 3600
+      sfcr_id: ""
+      sfc_id: ""
+      src_id: ""
+      dst_id: ""
+      process_id: ""
+      port: ""
+      start_time: "1667846307.5311675"
+      service_type:
+        - "firewall"
+        - "ids"
+  Traffic_Scenario_Info:
+    type: "object"
+    properties:
+      s_type:
+        type: "string"
+      prefix:
+        type: "string"
+      traffic_id:
+        type: "string"
+      src:
+        type: "string"
+      dst:
+        type: "string"
+      bandwidth:
+        type: "integer"
+        format: "int32"
+        description: "Mbps"
+      duration:
+        type: "integer"
+        format: "int32"
+        description: "seconds"
+      service_type:
+        type: "array"
+        items:
+          type: "string"
+      wait_time:
+        type: "integer"
+        format: "int32"
+        description: "seconds"        
+    description: "traffic scenario object"
+    example:
+      s_type: "change"
+      prefix: "s1"
+      traffic_id: "0"
+      src: ""
+      dst: ""
+      bandwidth: 30
+      duration: 1200
+      service_type: []
+externalDocs:
+  description: "Find out more about DPNM NI."
+  url: "http://dpnm.postech.ac.kr/"
