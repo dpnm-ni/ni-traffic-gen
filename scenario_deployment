@@ -1,0 +1,6 @@
+s_type,prefix,traffic_id,src,dst,bandwidth,duration,service_type
+add,s1,0,141.223.181.155,141.223.181.156,300,3600,firewall,ids
+add,s1,1,141.223.181.156,141.223.181.155,300,3600,firewall
+add,s1,2,141.223.181.155,141.223.181.158,250,3600,firewall,dpi
+add,s1,3,141.223.181.154,141.223.181.158,250,3600,firewall,dpi,ids
+add,s1,4,141.223.181.154,141.223.181.157,250,3600,firewall,ids
